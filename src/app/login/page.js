@@ -15,7 +15,7 @@ export default function Login() {
     e.preventDefault();
 
     setMensaje("Iniciando sesión...");
-
+    
     const supabase = createClient();
 
     const { error } = await supabase.auth.signInWithPassword({
@@ -24,9 +24,11 @@ export default function Login() {
     });
 
     if (error) {
-      setMensaje("Correo o contraseña incorrectos.");
+      console.error("ERROR SUPABASE:", error);
+      setMensaje("Error: " + error.message);
+      setCargando(false);
       return;
-    }
+  }
 
     setMensaje("Inicio de sesión correcto.");
 
